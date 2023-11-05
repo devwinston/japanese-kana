@@ -34,7 +34,7 @@ const Summary = () => {
 
       <h1 className="adjusted-score">
         <FaStarHalfAlt className="icon-right" />
-        Adjusted Score: {Math.round(kana.length / 140) * score}
+        Adjusted Score: {Math.round((kana.length / 140) * score)}
       </h1>
 
       <div className="row-container">
