@@ -1,13 +1,197 @@
-body {
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap");
+
+* {
+  /* border: 1px solid red; */
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+  font-family: "JetBrains Mono", monospace;
+  box-sizing: border-box;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+:root {
+  --red: hsl(0, 91%, 63%);
+  --orange: hsl(13, 95%, 66%);
+  --yellow: hsl(42, 91%, 68%);
+  --neon-green: #a3ffae;
+  --almost-white: hsl(252, 11%, 91%);
+  --gray: hsl(251, 9%, 53%);
+  --dark-gray: hsl(248, 10%, 15%);
+  --very-dark-gray: hsl(248, 15%, 11%);
+}
+
+body {
+  background-color: var(--very-dark-gray);
+  color: var(--almost-white);
+}
+
+h1,
+h2 {
+  text-align: center;
+  margin: 20px 0 10px;
+}
+
+h2 {
+  color: var(--gray);
+}
+
+.center-container {
+  background-color: var(--dark-gray);
+  max-width: 750px;
+  min-width: 400px;
+  margin: 50px auto;
+  padding: 10px 30px;
+}
+
+.row-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  margin: 10px 0;
+  text-align: center;
+}
+
+.character-container,
+.hiragana-container,
+.katakana-container {
+  margin: 5px;
+}
+
+.hiragana-container,
+.katakana-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.character-label,
+.hiragana-label,
+.katakana-label,
+.practice-label,
+.challenge-label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 3px solid var(--neon-green);
+  color: var(--almost-white);
+  background: var(--dark-gray);
+  padding: 5px 10px;
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
+  transition: 0.3s;
+}
+
+.hiragana-label,
+.katakana-label,
+.practice-label,
+.challenge-label {
+  font-size: 1.5rem;
+}
+
+.practice-label {
+  border: 3px solid var(--orange);
+  margin: 10px 5px;
+}
+
+.challenge-label {
+  border: 3px solid var(--red);
+  margin: 10px 5px;
+}
+
+.character-label:hover,
+.hiragana-label:hover,
+.katakana-label:hover,
+.practice-label:hover,
+.challenge-label:hover {
+  translate: -3px -3px;
+  cursor: pointer;
+}
+
+.character-checkbox:checked + .character-label,
+.hiragana-checkbox:checked + .hiragana-label,
+.katakana-checkbox:checked + .katakana-label {
+  color: var(--dark-gray);
+  background: var(--neon-green);
+}
+
+.practice-checkbox:checked + .practice-label {
+  color: var(--dark-gray);
+  background: var(--orange);
+}
+.challenge-checkbox:checked + .challenge-label {
+  color: var(--dark-gray);
+  background: var(--red);
+}
+
+.styled-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--almost-white);
+  background: var(--dark-gray);
+  font-size: 2rem;
+  font-weight: bold;
+  margin: 20px 0;
+  padding: 5px 10px;
+}
+
+.styled-button:hover {
+  cursor: pointer;
+}
+
+.icon-right {
+  margin-right: 10px;
+}
+
+.icon-left {
+  margin-left: 10px;
+}
+
+.kana-header {
+  font-size: 6rem;
+}
+
+.time-header,
+.score-header {
+  margin: 10px;
+  padding: 10px 20px;
+  background-color: var(--very-dark-gray);
+}
+
+.input-answer {
+  border: none;
+  width: 100%;
+  color: var(--almost-white);
+  background-color: var(--gray);
+  font-size: 4rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+.input-answer:hover {
+  cursor: pointer;
+}
+
+#check-container {
+  display: flex;
+  justify-content: center;
+  align-item: center;
+  font-size: 4rem;
+  font-weight: bold;
+}
+
+.summary-header {
+  font-size: 4rem;
+}
+
+.adjusted-score {
+  color: var(--red);
+}
+
+.challenge-tip {
+  margin: 20px 0;
+  color: var(--gray);
+  font-style: italic;
+  text-align: center;
 }
