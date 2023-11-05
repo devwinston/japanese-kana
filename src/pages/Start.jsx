@@ -10,7 +10,7 @@ const Start = () => {
   const location = useLocation();
   const { selected, mode } = location.state;
 
-  const duration = 5;
+  const duration = 100;
   const [time, setTime] = useState(duration);
   const [score, setScore] = useState(0);
   const [count, setCount] = useState(0);
