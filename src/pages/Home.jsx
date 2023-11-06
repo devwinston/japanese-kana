@@ -287,7 +287,7 @@ const Home = () => {
         <div className="tooltip">
           <FaInfoCircle className="info-icon" size={30} />
           <span className="tooltip-content">
-            Flashcard-style tool for learning Japanese hiragana and katakana
+            Flashcard-style learning tool for Japanese hiragana and katakana
             characters. Built with <a href="https://react.dev/">React</a> and{" "}
             <a href="https://firebase.google.com/">Firebase</a>, click{" "}
             <a href="https://github.com/obdwinston/japanese-kana">here</a> for

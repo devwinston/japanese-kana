@@ -1,4 +1,4 @@
-Flashcard-style tool for learning Japanese hiragana/katakana characters. Practice and challenge modes available!
+Flashcard-style learning tool for Japanese hiragana/katakana characters. Practice and challenge modes available!
 
 [Live Site](https://japanese-kana.vercel.app/)
 
