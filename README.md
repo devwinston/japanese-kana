@@ -2,4 +2,4 @@ Flashcard-style tool for learning Japanese hiragana/katakana characters. Practic
 
 [Live Site](https://japanese-kana.vercel.app/)
 
-[![My Skills](https://skillicons.dev/icons?i=react,html,css,javascript)](https://skillicons.dev)
+[![My Skills](https://skillicons.dev/icons?i=react,firebase)](https://skillicons.dev)
