@@ -94,12 +94,12 @@ const Summary = () => {
 
       <h2>
         <FaChartPie className="icon-right" />
-        Coverage: {kana.length}/140 ({Math.round((kana.length / 140) * 100)}%)
+        Coverage: {kana.length}/142 ({Math.round((kana.length / 142) * 100)}%)
       </h2>
 
       <h1 className="adjusted-score">
         <FaStarHalfAlt className="icon-right" />
-        Adjusted Score: {Math.round((kana.length / 140) * score)}
+        Adjusted Score: {Math.round((kana.length / 142) * score)}
       </h1>
 
       <div className="row-container">
