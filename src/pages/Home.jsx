@@ -1,17 +1,76 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { FaCheckSquare, FaBook, FaStopwatch, FaStar } from "react-icons/fa";
+import {
+  FaCheckSquare,
+  FaBook,
+  FaStopwatch,
+  FaStar,
+  FaInfoCircle,
+  FaTrophy,
+} from "react-icons/fa";
+
+import { collection, getDocs, query, orderBy, limit } from "firebase/firestore";
+import { db } from "../firebase.config";
 
 const hiragana = ["あ", "か", "さ", "た", "な", "は", "ま", "や", "ら", "わ"];
 const katakana = ["ア", "カ", "サ", "タ", "ナ", "ハ", "マ", "ヤ", "ラ", "ワ"];
+const month = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec",
+];
 
 const Home = () => {
   const [selected, setSelected] = useState([]);
   const [mode, setMode] = useState("");
+  const [scores, setScores] = useState([]);
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchScores = async () => {
+      try {
+        const q = query(
+          collection(db, "scores"),
+          orderBy("score", "desc"),
+          orderBy("timestamp", "desc"),
+          limit(5)
+        );
+
+        const querySnap = await getDocs(q);
+
+        const scores = [];
+        querySnap.forEach((doc) =>
+          scores.push({
+            name: doc.data().name,
+            score: doc.data().score,
+            month: month[doc.data().timestamp.toDate().getMonth()],
+            year: doc
+              .data()
+              .timestamp.toDate()
+              .getFullYear()
+              .toString()
+              .substring(2),
+          })
+        );
+
+        setScores(scores);
+      } catch (error) {}
+    };
+
+    fetchScores();
+  }, []);
 
   const handleSelectedChange = (e) => {
     const { value, checked } = e.target;
@@ -219,11 +278,39 @@ const Home = () => {
         <div className="row-container">
           <button className="styled-button" type="submit">
             <FaStar className="icon-right" />
-            START
-            <FaStar className="icon-left" />
+            Start
           </button>
         </div>
       </form>
+
+      <div className="info-container">
+        <div className="tooltip">
+          <FaInfoCircle className="info-icon" size={30} />
+          <span className="tooltip-content">
+            Flashcard-style tool for learning Japanese hiragana and katakana
+            characters. Built with <a href="https://react.dev/">React</a>, click{" "}
+            <a href="https://github.com/obdwinston/japanese-kana">here</a> for
+            source code.
+          </span>
+        </div>
+        <div className="tooltip">
+          <FaTrophy className="score-icon" size={30} />
+          <span className="tooltip-content">
+            <p className="score-test">Hi-Scores</p>
+            {scores.length === 0 ? (
+              <p>No scores available.</p>
+            ) : (
+              <ol className="score-list">
+                {scores.map((score, index) => (
+                  <li className="score-list-item" key={index}>
+                    {score.name} - {score.score} ({score.month} {score.year})
+                  </li>
+                ))}
+              </ol>
+            )}
+          </span>
+        </div>
+      </div>
     </div>
   );
 };

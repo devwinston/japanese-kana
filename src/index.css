@@ -35,11 +35,12 @@ h2 {
 }
 
 .center-container {
+  position: relative;
   background-color: var(--dark-gray);
   max-width: 750px;
   min-width: 400px;
   margin: 50px auto;
-  padding: 10px 30px;
+  padding: 15px 30px;
 }
 
 .row-container {
@@ -194,4 +195,133 @@ h2 {
   color: var(--gray);
   font-style: italic;
   text-align: center;
+}
+
+.info-container {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+}
+
+.info-icon {
+  color: var(--almost-white);
+  margin-right: 10px;
+}
+@media (max-width: 500px) {
+  .info-icon {
+    color: var(--almost-white);
+    margin-bottom: 10px;
+  }
+}
+
+.score-icon {
+  color: var(--yellow);
+}
+
+.info-icon:hover,
+.score-icon:hover {
+  cursor: pointer;
+}
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+@media (max-width: 500px) {
+  .tooltip {
+    display: block;
+  }
+}
+
+.tooltip .tooltip-content {
+  visibility: hidden;
+  background-color: var(--very-dark-gray);
+  color: var(--almost-white);
+  width: 280px;
+  padding: 10px;
+  border-radius: 5px;
+
+  position: absolute;
+  z-index: 1;
+  top: 35px;
+  left: 0px;
+
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.tooltip:hover .tooltip-content {
+  visibility: visible;
+  opacity: 0.9;
+}
+
+a:link {
+  color: var(--neon-green);
+  background-color: transparent;
+  text-decoration: none;
+}
+
+a:visited {
+  color: var(--neon-green);
+  background-color: transparent;
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--red);
+  background-color: transparent;
+  text-decoration: none;
+}
+
+a:active {
+  color: var(--neon-green);
+  background-color: transparent;
+  text-decoration: none;
+}
+
+.score-button {
+  margin-left: 20px;
+}
+
+.name-header {
+  margin-bottom: 10px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+.name-input {
+  width: 100%;
+  color: var(--almost-white);
+  background-color: var(--gray);
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.name-input:hover {
+  cursor: pointer;
+}
+
+.name-form {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.name-button {
+  font-size: 1.5rem;
+  margin-bottom: 0;
+}
+
+.score-test {
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.score-list {
+  list-style-position: inside;
 }

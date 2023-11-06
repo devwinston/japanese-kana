@@ -8,9 +8,14 @@ import data from "../data/kana.json";
 const Start = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { selected, mode } = location.state;
 
-  const duration = 100;
+  // eslint-disable-next-line
+  const { selected, mode } = location.state ?? {
+    selected: [],
+    mode: "",
+  };
+
+  const duration = 60;
   const [time, setTime] = useState(duration);
   const [score, setScore] = useState(0);
   const [count, setCount] = useState(0);
@@ -28,6 +33,8 @@ const Start = () => {
     if (location.state === null) {
       navigate("/");
     } else {
+      const { selected, mode } = location.state;
+
       let scope = {};
       for (let i = 0; i < selected.length; i++) {
         scope = { ...scope, ...data[selected[i]] };
@@ -36,7 +43,6 @@ const Start = () => {
       setRomaji(Object.values(scope));
 
       document.getElementById("input-answer").focus();
-
       if (mode === "challenge") {
         intervalRef.current = setInterval(decreaseTime, 1000);
 
@@ -44,17 +50,17 @@ const Start = () => {
           clearInterval(intervalRef.current);
         };
       }
-
       if (mode === "practice") {
         document.getElementById("check-container").style.display = "none";
       }
     }
-  }, []);
+  }, [navigate, location.state]);
 
   useEffect(() => {
     if (time < 0) {
       navigate("/summary", { state: { kana, score, count } });
     }
+    // eslint-disable-next-line
   }, [time]);
 
   const handleSpace = (e) => {
@@ -133,8 +139,7 @@ const Start = () => {
       <div className="row-container">
         <button className="styled-button" onClick={() => navigate("/")}>
           <FaHome className="icon-right" />
-          HOME
-          <FaHome className="icon-left" />
+          Home
         </button>
       </div>
     </div>
