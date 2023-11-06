@@ -224,7 +224,6 @@ const Home = () => {
           </button>
         </div>
       </form>
-      <p>{selected}</p>
     </div>
   );
 };
