@@ -32,6 +32,14 @@ const Home = () => {
         setSelected([...new Set([...selected, ...katakana])]);
       } else {
         // character checked
+        // all hiragana characters checked
+        if (hiragana.every((element) => [...selected, value].includes(element)))
+          document.getElementById("hiragana-checkbox").checked = true;
+
+        // all katakana characters checked
+        if (katakana.every((element) => [...selected, value].includes(element)))
+          document.getElementById("katakana-checkbox").checked = true;
+
         setSelected([...selected, value]);
       }
     } else {
@@ -54,11 +62,13 @@ const Home = () => {
         setSelected(selectedCopy);
       } else {
         // character unchecked
-        setSelected(selected.filter((e) => e !== value));
+        // not all hiragana character checked
         if (hiragana.includes(value))
           document.getElementById("hiragana-checkbox").checked = false;
+        // not all katakana character checked
         if (katakana.includes(value))
           document.getElementById("katakana-checkbox").checked = false;
+        setSelected(selected.filter((e) => e !== value));
       }
     }
   };
@@ -214,6 +224,7 @@ const Home = () => {
           </button>
         </div>
       </form>
+      <p>{selected}</p>
     </div>
   );
 };
