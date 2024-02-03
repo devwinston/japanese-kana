@@ -1,4 +1,4 @@
-Flashcard-style learning tool for Japanese characters
+Flashcard-style learning tool for Japanese characters.
 
 Features practice/challenge modes and light/dark themes.
 
