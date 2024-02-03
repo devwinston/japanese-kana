@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import {
@@ -15,34 +15,13 @@ import Modal from "react-modal";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { db } from "../firebase.config";
 
-const customStyles = {
-  overlay: {
-    position: "fixed",
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    backgroundColor: "hsla(248, 10%, 15%, 0.9)",
-  },
-  content: {
-    position: "absolute",
-    top: "300px",
-    left: "50%",
-    right: "auto",
-    bottom: "auto",
-    transform: "translate(-50%, -50%)",
-    width: "60%",
-    maxWidth: "500px",
-    minWidth: "300px",
-    border: "1px solid hsl(251, 9%, 53%)",
-    background: "hsl(248, 10%, 15%)",
-    padding: "20px",
-  },
-};
+import { ThemeContext } from "../App";
 
 const Summary = () => {
   const navigate = useNavigate();
   const location = useLocation();
+
+  const { theme } = useContext(ThemeContext);
 
   const { kana, score, count } = location.state ?? {
     kana: [],
@@ -62,6 +41,32 @@ const Summary = () => {
   const openModal = () => setModal(true);
   const closeModal = () => setModal(false);
 
+  const customStyles = {
+    overlay: {
+      position: "fixed",
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      backgroundColor: "hsla(248, 10%, 15%, 0.9)",
+    },
+    content: {
+      position: "absolute",
+      top: "300px",
+      left: "50%",
+      right: "auto",
+      bottom: "auto",
+      transform: "translate(-50%, -50%)",
+      width: "60%",
+      maxWidth: "500px",
+      minWidth: "300px",
+      border: "1px solid hsl(251, 9%, 53%)",
+      background:
+        theme === "dark" ? "hsl(248, 10%, 15%)" : "hsl(252, 11%, 91%)",
+      padding: "20px",
+    },
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -79,7 +84,7 @@ const Summary = () => {
   };
 
   return (
-    <div className="center-container">
+    <div className={"center-container " + theme}>
       <h1 className="summary-header">Summary</h1>
       <h2>
         <FaStar className="icon-right" />
@@ -123,7 +128,7 @@ const Summary = () => {
         <form className="name-form" onSubmit={handleSubmit}>
           <div className="name-container">
             <input
-              className="name-input"
+              className={"name-input " + theme}
               id="name-input"
               name="name-input"
               type="text"

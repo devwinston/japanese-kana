@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -9,10 +9,14 @@ import {
   FaStar,
   FaInfoCircle,
   FaTrophy,
+  FaSun,
+  FaMoon,
 } from "react-icons/fa";
 
 import { collection, getDocs, query, orderBy, limit } from "firebase/firestore";
 import { db } from "../firebase.config";
+
+import { ThemeContext } from "../App.js";
 
 const hiragana = ["あ", "か", "さ", "た", "な", "は", "ま", "や", "ら", "わ"];
 const katakana = ["ア", "カ", "サ", "タ", "ナ", "ハ", "マ", "ヤ", "ラ", "ワ"];
@@ -35,6 +39,7 @@ const Home = () => {
   const [selected, setSelected] = useState([]);
   const [mode, setMode] = useState("");
   const [scores, setScores] = useState([]);
+  const { theme, setTheme } = useContext(ThemeContext);
 
   const navigate = useNavigate();
 
@@ -163,7 +168,7 @@ const Home = () => {
   };
 
   return (
-    <div className="center-container">
+    <div className={"center-container " + theme}>
       <h1>
         Japanese Kana
         <br />
@@ -173,7 +178,7 @@ const Home = () => {
       <form onSubmit={handleSubmit}>
         <h2>Select Hiragana</h2>
         <div className="row-container">
-          {hiragana.map((character, index) => (
+          {hiragana.slice(0, 5).map((character, index) => (
             <div className="character-container" key={index}>
               <input
                 className="character-checkbox"
@@ -184,7 +189,25 @@ const Home = () => {
                 onChange={handleSelectedChange}
                 style={{ display: "none" }}
               />
-              <label className="character-label" htmlFor={character}>
+              <label className={"character-label " + theme} htmlFor={character}>
+                {character}
+              </label>
+            </div>
+          ))}
+        </div>
+        <div className="row-container">
+          {hiragana.slice(5, 10).map((character, index) => (
+            <div className="character-container" key={index}>
+              <input
+                className="character-checkbox"
+                type="checkbox"
+                id={character}
+                name={character}
+                value={character}
+                onChange={handleSelectedChange}
+                style={{ display: "none" }}
+              />
+              <label className={"character-label " + theme} htmlFor={character}>
                 {character}
               </label>
             </div>
@@ -200,7 +223,10 @@ const Home = () => {
             onChange={handleSelectedChange}
             style={{ display: "none" }}
           />
-          <label className="hiragana-label" htmlFor="hiragana-checkbox">
+          <label
+            className={"hiragana-label " + theme}
+            htmlFor="hiragana-checkbox"
+          >
             <FaCheckSquare className="icon-right" />
             All Hiragana
           </label>
@@ -208,7 +234,7 @@ const Home = () => {
 
         <h2>Select Katakana</h2>
         <div className="row-container">
-          {katakana.map((character, index) => (
+          {katakana.slice(0, 5).map((character, index) => (
             <div className="character-container" key={index}>
               <input
                 className="character-checkbox"
@@ -219,7 +245,25 @@ const Home = () => {
                 onChange={handleSelectedChange}
                 style={{ display: "none" }}
               />
-              <label className="character-label" htmlFor={character}>
+              <label className={"character-label " + theme} htmlFor={character}>
+                {character}
+              </label>
+            </div>
+          ))}
+        </div>
+        <div className="row-container">
+          {katakana.slice(5, 10).map((character, index) => (
+            <div className="character-container" key={index}>
+              <input
+                className="character-checkbox"
+                type="checkbox"
+                id={character}
+                name={character}
+                value={character}
+                onChange={handleSelectedChange}
+                style={{ display: "none" }}
+              />
+              <label className={"character-label " + theme} htmlFor={character}>
                 {character}
               </label>
             </div>
@@ -235,7 +279,10 @@ const Home = () => {
             onChange={handleSelectedChange}
             style={{ display: "none" }}
           />
-          <label className="katakana-label" htmlFor="katakana-checkbox">
+          <label
+            className={"katakana-label " + theme}
+            htmlFor="katakana-checkbox"
+          >
             <FaCheckSquare className="icon-right" />
             All Katakana
           </label>
@@ -253,11 +300,16 @@ const Home = () => {
               onChange={handleModeChange}
               style={{ display: "none" }}
             />
-            <label className="practice-label" htmlFor="practice-checkbox">
+            <label
+              className={"practice-label " + theme}
+              htmlFor="practice-checkbox"
+            >
               <FaBook className="icon-right" />
               Practice Mode
             </label>
           </div>
+        </div>
+        <div className="row-container">
           <div className="challenge-container">
             <input
               className="challenge-checkbox"
@@ -268,7 +320,10 @@ const Home = () => {
               onChange={handleModeChange}
               style={{ display: "none" }}
             />
-            <label className="challenge-label" htmlFor="challenge-checkbox">
+            <label
+              className={"challenge-label " + theme}
+              htmlFor="challenge-checkbox"
+            >
               <FaStopwatch className="icon-right" />
               Challenge Mode
             </label>
@@ -285,7 +340,7 @@ const Home = () => {
 
       <div className="info-container">
         <div className="tooltip">
-          <FaInfoCircle className="info-icon" size={30} />
+          <FaInfoCircle className={"info-icon " + theme} size={30} />
           <span className="tooltip-content">
             Flashcard-style learning tool for Japanese hiragana and katakana
             characters. Built with <a href="https://react.dev/">React</a> and{" "}
@@ -295,7 +350,7 @@ const Home = () => {
           </span>
         </div>
         <div className="tooltip">
-          <FaTrophy className="score-icon" size={30} />
+          <FaTrophy className={"score-icon " + theme} size={30} />
           <span className="tooltip-content">
             <p className="score-test">Hi-Scores</p>
             {scores.length === 0 ? (
@@ -312,6 +367,20 @@ const Home = () => {
           </span>
         </div>
       </div>
+
+      {theme === "light" ? (
+        <FaSun
+          className="sun-icon"
+          size={30}
+          onClick={() => setTheme("dark")}
+        />
+      ) : (
+        <FaMoon
+          className="moon-icon"
+          size={30}
+          onClick={() => setTheme("light")}
+        />
+      )}
     </div>
   );
 };

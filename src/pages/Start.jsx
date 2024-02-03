@@ -1,13 +1,17 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useState, useEffect, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { FaHome, FaKeyboard, FaCheck } from "react-icons/fa";
+
+import { ThemeContext } from "../App.js";
 
 import data from "../data/kana.json";
 
 const Start = () => {
   const navigate = useNavigate();
   const location = useLocation();
+
+  const { theme } = useContext(ThemeContext);
 
   // eslint-disable-next-line
   const { selected, mode } = location.state ?? {
@@ -92,7 +96,7 @@ const Start = () => {
   };
 
   return (
-    <div className="center-container">
+    <div className={"center-container " + theme}>
       <h1 className="kana-header">{kana[index]}</h1>
 
       {mode === "practice" &&
@@ -101,24 +105,24 @@ const Start = () => {
             <FaCheck className="icon" />
           </div>
         ) : (
-          <div id="check-container">{romaji[index]} </div>
+          <div id="check-container">{romaji[index]}</div>
         ))}
 
       {mode === "challenge" ? (
-        <div className="row-container">
-          <FaKeyboard className="icon-right" />
-          Press [Enter ⏎] to submit
-        </div>
+        <p className="instruction-text">
+          <FaKeyboard /> Press [Enter ⏎] to submit
+        </p>
       ) : (
-        <div className="row-container">
-          <FaKeyboard className="icon-right" />
-          Press [Enter ⏎] to submit and [Enter ⏎] again to proceed
-        </div>
+        <p className="instruction-text">
+          <FaKeyboard /> Press [Enter ⏎] to submit
+          <br />
+          and [Enter ⏎] again to proceed
+        </p>
       )}
 
       <div className="row-container">
         <input
-          className="input-answer"
+          className={"input-answer " + theme}
           id="input-answer"
           name="input-answer"
           type="text"
@@ -131,8 +135,8 @@ const Start = () => {
 
       {mode === "challenge" && (
         <div className="row-container">
-          <h1 className="time-header">Time: {time} s</h1>
-          <h1 className="score-header">Score: {score}</h1>
+          <h1 className={"time-header " + theme}>Time: {time} s</h1>
+          <h1 className={"score-header " + theme}>Score: {score}</h1>
         </div>
       )}
 
