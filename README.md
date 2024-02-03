@@ -1,4 +1,6 @@
-Flashcard-style learning tool for Japanese characters with practice and challenge modes.
+Flashcard-style learning tool for Japanese characters
+
+Features practice/challenge modes and light/dark themes.
 
 [Live Site](https://japanese-kana.vercel.app/)
 
